@@ -9,7 +9,7 @@ DIR=/home/hackcode2011/dump/dump_dir
 # create file nano ~/.pgpass  content file .pgpass have fomat hostname:port:database:username:password   EX: "localhost:5432:SSC:postgres:123"
 
 mkdir -p $DIR
-TABLES="$(psql --dbname $DB --host "localhost" --port "5432" --username "postgres" --password -t -c "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_name LIKE '%$P%' ORDER BY table_name")"
+TABLES="$(psql --dbname "SSC" --host "localhost" --port "5432" --username "postgres" --password -t -c "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_name LIKE '%$P%' ORDER BY table_name")"
 for table in $TABLES; do
   echo $table
   pg_dump --dbname "SSC" --host "localhost" --port "5432" --username "postgres" -w -t $table > $DIR/$table.sql;
